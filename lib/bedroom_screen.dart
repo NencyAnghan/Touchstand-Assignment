@@ -215,7 +215,8 @@ Color bulbColor=Colors.orangeAccent;
                               color: bulbColor.withAlpha((currentSliderValue*0.5).toInt()),
                               spreadRadius: 5,
                               blurRadius: 3,
-                              offset: Offset(0, 3), 
+                              offset: Offset(0, 3),
+
                             ),
                           ],
                         ),
