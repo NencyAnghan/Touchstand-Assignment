@@ -12,7 +12,7 @@ class BedRoomScreen extends StatefulWidget {
 class _BedRoomScreenState extends State<BedRoomScreen> {
   String name, lights;
   double currentSliderValue=20;
-
+Color bulbColor=Colors.orangeAccent;
 
   @override
   void initState() {
@@ -23,11 +23,18 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
   }
 
   Widget _buildSingleColor(Color color){
-    return  Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.all(Radius.circular(24),
+    return  InkWell(
+      onTap: (){
+        setState(() {
+          bulbColor=color;
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.all(Radius.circular(24),
+          ),
         ),
       ),
     );
@@ -135,10 +142,10 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                           ),
                         ),
                         SizedBox(
-                          width: 16,
+                          width: 8,
                         ),
                         Text(
-                          'Bed \nRoom',
+                          'Bed',
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             color: Colors.white,
@@ -147,6 +154,15 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                           ),
                         ),
                       ],
+                    ),
+                    Text(
+                      'Room',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 32,
+                      ),
                     ),
                     SizedBox(
                       height: 16,
@@ -163,10 +179,54 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                 ),
               ),
               Container(
+                margin: EdgeInsets.only(right: 24),
                 height: 120,
-                child: Image(
-                  fit: BoxFit.fitWidth,
-                  image: AssetImage('assets/png/light bulb.png'),
+                child: Stack(
+                  children: [
+                    /*Positioned(
+                      top: 82,
+                      left: 36,
+                      child: Container(
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(Radius.circular(24)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withAlpha(255-currentSliderValue.toInt()),
+                              spreadRadius: 5,
+                              blurRadius: 3,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),*/
+                    Positioned(
+                      top: 82,
+                      left: 36,
+                      child: Container(
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: bulbColor.withAlpha(currentSliderValue.toInt()),
+                          borderRadius: BorderRadius.all(Radius.circular(24)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: bulbColor.withAlpha((currentSliderValue*0.5).toInt()),
+                              spreadRadius: 5,
+                              blurRadius: 3,
+                              offset: Offset(0, 3), 
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Image(
+                      fit: BoxFit.fitWidth,
+                      image: AssetImage('assets/png/bulbnew.png'),
+                    ),
+
+                  ],
                 ),
               ),
             ],
@@ -200,17 +260,19 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
             ),
           ),
           SizedBox(
-            height: 24,
+            height: 32,
           ),
           Expanded(
             child: Container(
+              clipBehavior: Clip.none,
               padding: EdgeInsets.all(24),
               width: MediaQuery.of(context).size.width,
               child: Stack(
+                clipBehavior: Clip.none,
                 children: [
                   Positioned(
-                    right: 24,
-                 //   top: -10,
+                    right: 16,
+                   top: -40,
                     child: Container(
                       padding: EdgeInsets.all(6),
                       decoration: BoxDecoration(
@@ -235,7 +297,7 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                       ),
                       ),
                       SizedBox(
-                        height: 24,
+                        height: 16,
                       ),
                       Row(
                         children: [
@@ -250,7 +312,7 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                             child: Slider(
                               value: currentSliderValue,
                               min: 0,
-                              max: 100,
+                              max: 255,
                               activeColor: Colors.orangeAccent.shade100,
                               inactiveColor:Colors.grey.shade200 ,
                               onChanged: (double value) {
@@ -270,7 +332,7 @@ class _BedRoomScreenState extends State<BedRoomScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: 32,
+                        height: 24,
                       ),
                       Text('Colors',
                         style: TextStyle(

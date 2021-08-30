@@ -23,53 +23,50 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Widget _buildSingleRoom(
-      {String name, String image, String lights}) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image(
-              height: 48,
-              image: AssetImage(image),
+  Widget _buildSingleRoom({String name, String image, String lights}) {
+    return Container(
+      padding: EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image(
+            height: 48,
+            image: AssetImage(image),
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          Text(
+            name,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
             ),
-            SizedBox(
-              height: 24,
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Text(
+            lights,
+            style: TextStyle(
+              color: Colors.orangeAccent,
+              fontWeight: FontWeight.w700,
+              fontSize: 14,
             ),
-            Text(
-              name,
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 20,
-              ),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              lights,
-              style: TextStyle(
-                color: Colors.orangeAccent,
-                fontWeight: FontWeight.w700,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(24)),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 1,
-              blurRadius: 2,
-              offset: Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
+          ),
+        ],
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(24)),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
       ),
     );
   }
@@ -97,23 +94,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         letterSpacing: 0.8),
                   ),
                 ),
-                InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>BedRoomScreen(name: 'Bed \nRoom',lights: '4 Lights',)),);
-                  },
-                  child: Image(
-                    height: 100,
-                    image: AssetImage('assets/png/user.png'),
-                  ),
+                Image(
+                  height: 100,
+                  image: AssetImage('assets/png/user.png'),
                 ),
               ],
             ),
-            /* decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/png/Circles.png'),
-                  fit: BoxFit.cover,
-                ),
-              )*/
           ),
           SizedBox(
             height: 16,
@@ -121,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             child: Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
+              padding: EdgeInsets.symmetric(horizontal:24, vertical: 0),
               child: ListView(
                 children: [
                   Text(
@@ -137,18 +123,32 @@ class _MyHomePageState extends State<MyHomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildSingleRoom(
-                          name: 'Bed room',
-                          image: 'assets/png/bed.png',
-                          lights: '4 Lights',
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BedRoomScreen(name: 'Bed Room',
+                                    lights: '4 Lights',)),
+                            );
+                          },
+                          child: _buildSingleRoom(
+                            name: 'Bed room',
+                            image: 'assets/png/bed.png',
+                            lights: '4 Lights',
                           ),
+                        ),
+                      ),
                       SizedBox(
                         width: 24,
                       ),
-                      _buildSingleRoom(
-                          name: 'Living room',
-                          image: 'assets/png/room.png',
-                          lights: '2 Lights'),
+                      Expanded(
+                        child: _buildSingleRoom(
+                            name: 'Living room',
+                            image: 'assets/png/room.png',
+                            lights: '2 Lights'),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -157,17 +157,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildSingleRoom(
-                          name: 'Kitchen',
-                          image: 'assets/png/kitchen.png',
-                          lights: '5 Lights'),
+                      Expanded(
+                        child: _buildSingleRoom(
+                            name: 'Kitchen',
+                            image: 'assets/png/kitchen.png',
+                            lights: '5 Lights'),
+                      ),
                       SizedBox(
                         width: 24,
                       ),
-                      _buildSingleRoom(
-                          name: 'Bathroom',
-                          image: 'assets/png/bathtube.png',
-                          lights: '1 Lights'),
+                      Expanded(
+                        child: _buildSingleRoom(
+                            name: 'Bathroom',
+                            image: 'assets/png/bathtube.png',
+                            lights: '1 Lights'),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -176,17 +180,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildSingleRoom(
-                          name: 'Outdoor',
-                          image: 'assets/png/house.png',
-                          lights: '5 Lights'),
+                      Expanded(
+                        child: _buildSingleRoom(
+                            name: 'Outdoor',
+                            image: 'assets/png/house.png',
+                            lights: '5 Lights'),
+                      ),
                       SizedBox(
                         width: 24,
                       ),
-                      _buildSingleRoom(
-                          name: 'Balcony',
-                          image: 'assets/png/balcony.png',
-                          lights: '2 Lights'),
+                      Expanded(
+                        child: _buildSingleRoom(
+                            name: 'Balcony',
+                            image: 'assets/png/balcony.png',
+                            lights: '2 Lights'),
+                      ),
                     ],
                   ),
                   SizedBox(
